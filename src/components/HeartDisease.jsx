@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Shield, Activity, TrendingUp, CheckCircle } from "lucide-react";
 import HeartImg from "../assets/heart.png";
+import { predictHeart } from "./api";
 
 const HeartDisease = () => {
   const [heartFormData, setHeartFormData] = useState({});
@@ -22,23 +23,35 @@ const HeartDisease = () => {
     );
   };
 
+  // const predictHeartDisease = async () => {
+  //   setIsLoading(true);
+  //   setPrediction(null);
+  //   try {
+  //     const response = await fetch("http://127.0.0.1:5000/predict-heart", {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify(heartFormData),
+  //     });
+  //     const result = await response.json();
+  //     setPrediction(result.prediction);
+  //   } catch (error) {
+  //     console.error("Error predicting heart disease:", error);
+  //   } finally {
+  //     setIsLoading(false);
+  //   }
+  // };
   const predictHeartDisease = async () => {
-    setIsLoading(true);
-    setPrediction(null);
-    try {
-      const response = await fetch("http://127.0.0.1:5000/predict-heart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(heartFormData),
-      });
-      const result = await response.json();
-      setPrediction(result.prediction);
-    } catch (error) {
-      console.error("Error predicting heart disease:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  setIsLoading(true);
+  setPrediction(null);
+  try {
+    const result = await predictHeart(heartFormData);
+    setPrediction(result.prediction);
+  } catch (error) {
+    console.error("Error predicting heart disease:", error);
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-pink-50 to-rose-50">
