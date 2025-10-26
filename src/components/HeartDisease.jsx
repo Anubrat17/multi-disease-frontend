@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Shield, Activity, TrendingUp, CheckCircle } from "lucide-react";
 import HeartImg from "../assets/heart.png";
-import { predictHeart } from "./api";
+import { predictHeart } from "../api";
 
 const HeartDisease = () => {
   const [heartFormData, setHeartFormData] = useState({});
